@@ -29,7 +29,7 @@ def tg_drive_mode(bot: telegram.Bot,
     message: telegram.Message = update.effective_message
     edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
 
-    logger.debug("edited = " + edited)
+    logger.debug("edited = " + str(edited))
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=int(tg_group_id))
