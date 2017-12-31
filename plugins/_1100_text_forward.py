@@ -268,12 +268,18 @@ for forward in FORWARD_LIST:  # initialize
 
 def photo_from_telegram(bot: telegram.Bot,
                         update: telegram.Update):
+    """
     if update.message:
         message: telegram.Message = update.message
         edited = False
     else:
         message: telegram.Message = update.edited_message
         edited = True
+    """
+
+    message: telegram.Message = update.effective_message
+    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+    edited = (update.edited_channel_post or update.edited_message)
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -309,7 +315,7 @@ def photo_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message,
                                        edited=edited)
@@ -318,12 +324,18 @@ def photo_from_telegram(bot: telegram.Bot,
 
 def video_from_telegram(bot: telegram.Bot,
                         update: telegram.Update):
+    """
     if update.message:
         message: telegram.Message = update.message
         edited = False
     else:
         message: telegram.Message = update.edited_message
         edited = True
+    """
+
+    message: telegram.Message = update.effective_message
+    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+    edited = (update.edited_channel_post or update.edited_message)
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -337,7 +349,7 @@ def video_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message,
                                        edited=edited)
@@ -346,7 +358,7 @@ def video_from_telegram(bot: telegram.Bot,
 
 def audio_from_telegram(bot: telegram.Bot,
                         update: telegram.Update):
-    message: telegram.Message = update.message
+    message: telegram.Message = update.effective_message
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -360,7 +372,7 @@ def audio_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message)
     global_vars.mdb.append_message(qq_message_id, message.message_id, forward_index, 0)
@@ -368,12 +380,18 @@ def audio_from_telegram(bot: telegram.Bot,
 
 def document_from_telegram(bot: telegram.Bot,
                            update: telegram.Update):
+    """
     if update.message:
         message: telegram.Message = update.message
         edited = False
     else:
         message: telegram.Message = update.edited_message
         edited = True
+    """
+
+    message: telegram.Message = update.effective_message
+    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+    edited = (update.edited_channel_post or update.edited_message)
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -387,7 +405,7 @@ def document_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message,
                                        edited=edited)
@@ -396,7 +414,7 @@ def document_from_telegram(bot: telegram.Bot,
 
 def sticker_from_telegram(bot: telegram.Bot, update: telegram.Update):
 
-    message: telegram.Message = update.message
+    message: telegram.Message = update.effective_message
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -424,7 +442,7 @@ def sticker_from_telegram(bot: telegram.Bot, update: telegram.Update):
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message)
     global_vars.mdb.append_message(qq_message_id, message.message_id, forward_index, 0)
@@ -453,7 +471,7 @@ def get_location_from_baidu(latitude: Union[float, str],
 
 def location_from_telegram(bot: telegram.Bot,
                            update: telegram.Update):
-    message: telegram.Message = update.message
+    message: telegram.Message = update.effective_message
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -469,7 +487,7 @@ def location_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message)
     global_vars.mdb.append_message(qq_message_id, message.message_id, forward_index, 0)
@@ -477,12 +495,18 @@ def location_from_telegram(bot: telegram.Bot,
 
 def text_from_telegram(bot: telegram.Bot,
                        update: telegram.Update):
+    """
     if update.message:
         message: telegram.Message = update.message
         edited = False
     else:
         message: telegram.Message = update.edited_message
         edited = True
+    """
+
+    message: telegram.Message = update.effective_message
+    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+    edited = (update.edited_channel_post or update.edited_message)
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -499,35 +523,35 @@ def text_from_telegram(bot: telegram.Bot,
     qq_message_id = send_from_tg_to_qq(forward_index,
                                        message=reply_entity,
                                        tg_group_id=tg_group_id,
-                                       tg_user=message.from_user,
+                                       tg_user=update.effective_user,
                                        tg_forward_from=message,
                                        tg_reply_to=message.reply_to_message,
                                        edited=edited)
     global_vars.mdb.append_message(qq_message_id, message.message_id, forward_index, 0)
 
 
-global_vars.dp.add_handler(MessageHandler(Filters.group & (Filters.text | Filters.command),
+global_vars.dp.add_handler(MessageHandler((Filters.text | Filters.command),
                                           text_from_telegram,
                                           edited_updates=True),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.sticker,
+global_vars.dp.add_handler(MessageHandler(Filters.sticker,
                                           sticker_from_telegram),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.audio,
+global_vars.dp.add_handler(MessageHandler(Filters.audio,
                                           audio_from_telegram),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.photo,
+global_vars.dp.add_handler(MessageHandler(Filters.photo,
                                           photo_from_telegram,
                                           edited_updates=True),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.document,
+global_vars.dp.add_handler(MessageHandler(Filters.document,
                                           document_from_telegram,
                                           edited_updates=True),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.video,
+global_vars.dp.add_handler(MessageHandler(Filters.video,
                                           video_from_telegram),
                            get_plugin_priority(__name__))
-global_vars.dp.add_handler(MessageHandler(Filters.group & Filters.location,
+global_vars.dp.add_handler(MessageHandler(Filters.location,
                                           location_from_telegram),
                            get_plugin_priority(__name__))
 
