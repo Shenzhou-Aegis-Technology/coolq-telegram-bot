@@ -419,7 +419,7 @@ def sticker_from_telegram(bot: telegram.Bot, update: telegram.Update):
 
     reply_entity = list()
 
-    file_id = update.message.sticker.file_id
+    file_id = message.sticker.file_id
     if JQ_MODE:
         tg_get_pic_url(file_id, 'png')
         reply_entity.append({
