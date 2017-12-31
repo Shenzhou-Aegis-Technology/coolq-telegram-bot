@@ -20,10 +20,17 @@ for forward in FORWARD_LIST:  # initialize drive mode list
 
 def tg_drive_mode(bot: telegram.Bot,
                   update: telegram.Update):
+    """
     if update.message:
         message: telegram.Message = update.message
     else:
         message: telegram.Message = update.edited_message
+    """
+    message: telegram.Message = update.effective_message
+    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+    edited = (update.edited_channel_post or update.edited_message)
+
+    logger.debug("edited = " + edited)
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=int(tg_group_id))
