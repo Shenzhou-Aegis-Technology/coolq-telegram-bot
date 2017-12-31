@@ -27,8 +27,7 @@ def tg_drive_mode(bot: telegram.Bot,
         message: telegram.Message = update.edited_message
     """
     message: telegram.Message = update.effective_message
-    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
-    edited = (update.edited_channel_post or update.edited_message)
+    edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
 
     logger.debug("edited = " + edited)
 

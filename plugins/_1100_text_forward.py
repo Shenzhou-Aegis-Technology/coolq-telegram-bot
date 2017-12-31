@@ -278,8 +278,8 @@ def photo_from_telegram(bot: telegram.Bot,
     """
 
     message: telegram.Message = update.effective_message
-    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
-    edited = (update.edited_channel_post or update.edited_message)
+    edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
+
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -334,8 +334,7 @@ def video_from_telegram(bot: telegram.Bot,
     """
 
     message: telegram.Message = update.effective_message
-    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
-    edited = (update.edited_channel_post or update.edited_message)
+    edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -390,8 +389,7 @@ def document_from_telegram(bot: telegram.Bot,
     """
 
     message: telegram.Message = update.effective_message
-    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
-    edited = (update.edited_channel_post or update.edited_message)
+    edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
@@ -505,8 +503,7 @@ def text_from_telegram(bot: telegram.Bot,
     """
 
     message: telegram.Message = update.effective_message
-    # edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
-    edited = (update.edited_channel_post or update.edited_message)
+    edited = (bool(getattr(update, "edited_message", None)) or bool(getattr(update, "edited_channel_post", None)))
 
     tg_group_id = message.chat_id  # telegram group id
     forward_index = get_forward_index(tg_group_id=tg_group_id)
